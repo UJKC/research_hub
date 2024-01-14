@@ -1,17 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import Login from './components/Login';
-import AboutUs from './components/Aboutus';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import HomePage from './pages/Homepage';
+import Login from './pages/Login';
+import AboutUs from './pages/Aboutus';
 
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/login" component={Login} />
-        <Route path="/about" component={AboutUs} />
-      </Switch>
+      <Routes>
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/about" component={AboutUs} />
+      </Routes>
     </Router>
   );
 }

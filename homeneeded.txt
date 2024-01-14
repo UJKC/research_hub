@@ -5,5 +5,3 @@ Heros - Center Product
 Features - 3 Features
 
 Footers - Last
-
-List Groups - Features
