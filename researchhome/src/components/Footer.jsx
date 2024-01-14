@@ -1,4 +1,5 @@
 import React from 'react';
+import CurrentYear from './Year';
 
 function Footer() {
     return (
@@ -11,7 +12,7 @@ function Footer() {
             <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
             </ul>
-            <p class="text-center text-body-secondary">© 2023 Company, Inc</p>
+            <p class="text-center text-body-secondary">© <CurrentYear /> Company, Inc</p>
         </footer>
         </div>
     );

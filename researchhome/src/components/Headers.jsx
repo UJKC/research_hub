@@ -2,28 +2,37 @@ import React from 'react';
 
 function Header() {
     return (
-        <div class="container">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-          <div class="col-md-3 mb-2 mb-md-0">
-            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-              <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-            </a>
-          </div>
-    
-          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="#" class="nav-link px-2">Features</a></li>
-            <li><a href="#" class="nav-link px-2">Pricing</a></li>
-            <li><a href="#" class="nav-link px-2">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2">About</a></li>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About US</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn-outline-success btn" href="#">Login/Signup</a>
+            </li>
           </ul>
-    
-          <div class="col-md-3 text-end">
-            <button type="button" class="btn btn-outline-primary me-2">Login</button>
-            <button type="button" class="btn btn-primary">Sign-up</button>
-          </div>
-        </header>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
       </div>
+    </nav>
     );
   }
   

@@ -1,23 +1,20 @@
+// App.js
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
-import HomePage from './pages/Homepage';
-import Login from './pages/Login';
-import AboutUs from './pages/Aboutus';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Home from './pages/Homepage';
+import About from './pages/Login';
+import Contact from './pages/Aboutus';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/about" component={AboutUs} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;
