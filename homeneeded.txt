@@ -1,0 +1,7 @@
+// Reformat backend
+
+// configure endpoints (Login, signup, profile search)
+
+// integrate database
+
+// integrate all endpoints
