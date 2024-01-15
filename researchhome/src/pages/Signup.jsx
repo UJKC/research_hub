@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from '../components/Headers';
 import Footer from '../components/Footer';
-import Heros from '../components/Heros';
+import Sign from '../components/Signup';
 
 function HomePage() {
     return (
         <div className='HomePage'>
             <Header />
-            <Heros />
+            <Sign />
             <Footer />
         </div>
     );
