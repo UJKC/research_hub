@@ -2,9 +2,13 @@
 
 const express = require('express');
 const { Sequelize } = require('sequelize');
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = 5001;
+
+// Use body-parser middleware to parse JSON requests
+app.use(bodyParser.json());
 
 // Replace 'your_database.sqlite' with the actual path to your SQLite database file
 const sequelize = new Sequelize({
@@ -36,6 +40,28 @@ async function testDatabaseConnection() {
     console.error('Unable to connect to the database:', error.message);
   }
 }
+
+app.post('/authenticate', (req, res) => {
+  try {
+    // Extract email and password from the request
+    console.log(req.body)
+    const { email, password } = req.body;
+
+    // Perform your authentication logic here (replace this with your actual authentication logic)
+    // For demonstration purposes, this example always returns success with a user object
+    const isAuthenticated = true;
+    const user = { email }; // You might want to include more user information in a real scenario
+
+    if (isAuthenticated) {
+      res.status(200).json({ authenticated: true, user });
+    } else {
+      res.status(401).json({ authenticated: false, error: 'Authentication failed' });
+    }
+  } catch (error) {
+    console.error('Error during authentication:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 // Your other routes and middleware go here
 
