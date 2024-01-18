@@ -1,18 +1,24 @@
 import React from 'react';
 import '../styles/Sign.css'
 
+var email;
+var password;
+
 function Login() {
 
     const handleLogin = async (e) => {
       e.preventDefault();
 
+      console.log(email)
+      console.log(password);
+
       // Assuming your backend is running on localhost:3000
       const backendUrl = 'http://localhost:5000';
-
+      
       // Data to be sent to the backend
       const data = {
-        email: email,
-        password: password,
+        email,
+        password,
       };
 
       try {
@@ -21,7 +27,7 @@ function Login() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(data)
         });
 
         if (response.ok) {

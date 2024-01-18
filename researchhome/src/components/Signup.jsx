@@ -1,10 +1,18 @@
 import React from 'react';
 import '../styles/Sign.css'
 
+var username;
+var email;
+var password;
+
 function Sign() {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
+
+      console.log(username)
+      console.log(email)
+      console.log(password);
 
       // Prepare data to send to the backend
       const formData = {
@@ -20,7 +28,7 @@ function Sign() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(formData)
         });
 
         if (response.ok) {
