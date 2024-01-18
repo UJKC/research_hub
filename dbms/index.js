@@ -68,7 +68,20 @@ app.post('/authenticate', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-// Your other routes and middleware go here
+
+app.post('/createdbuser', (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+
+    // Handle the user registration data as needed
+    console.log('Received user data:', { username, email, password });
+
+    res.status(201).json({ message: 'User data received successfully' });
+  } catch (error) {
+    console.error('Error handling user data on backend_5001:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 app.listen(port, () => {
   // Call the function to test the database connection

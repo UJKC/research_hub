@@ -2,6 +2,39 @@ import React from 'react';
 import '../styles/Sign.css'
 
 function Sign() {
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      // Prepare data to send to the backend
+      const formData = {
+        username,
+        email,
+        password,
+      };
+
+      // Send POST request to the backend
+      try {
+        const response = await fetch('http://localhost:5000/createuser', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          // Handle successful registration (redirect, show success message, etc.)
+          console.log('User created successfully!');
+        } else {
+          // Handle registration error (show error message, etc.)
+          console.error('Failed to create user.');
+        }
+      } catch (error) {
+        console.error('Error during registration:', error);
+      }
+    };
+
     return (
       <section class="vh-100 bg-image"
         style={{backgroundImage: "url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp')"}}>
@@ -13,20 +46,20 @@ function Sign() {
                   <div class="card-body p-5">
                     <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-                    <form>
+                    <form onSubmit={handleSubmit}>
 
                       <div class="form-outline mb-4">
-                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
+                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" value={username} />
                         <label class="form-label" for="form3Example1cg">Your Name</label>
                       </div>
 
                       <div class="form-outline mb-4">
-                        <input type="email" id="form3Example3cg" class="form-control form-control-lg" />
+                        <input type="email" id="form3Example3cg" class="form-control form-control-lg" value={email}/>
                         <label class="form-label" for="form3Example3cg">Your Email</label>
                       </div>
 
                       <div class="form-outline mb-4">
-                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
+                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" value={password} />
                         <label class="form-label" for="form3Example4cg">Password</label>
                       </div>
 
@@ -43,7 +76,7 @@ function Sign() {
                       </div>
 
                       <div class="d-flex justify-content-center">
-                        <button type="button"
+                        <button type="submit"
                           class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                       </div>
 

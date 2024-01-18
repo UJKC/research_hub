@@ -37,6 +37,24 @@ app.post('/validate', async (req, res) => {
   }
 });
 
+app.post('/createuser', (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+
+    // Forward the data to the /createdbuser endpoint on port 5001
+    axios.post('http://localhost:5001/createdbuser', {
+      username,
+      email,
+      password,
+    });
+
+    res.status(201).json({ message: 'User data sent to backend successfully' });
+  } catch (error) {
+    console.error('Error forwarding data to backend_5001:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
