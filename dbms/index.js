@@ -69,12 +69,23 @@ app.post('/authenticate', async (req, res) => {
   }
 });
 
-app.post('/createdbuser', (req, res) => {
+app.post('/createdbuser', async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
+    const currentYear = new Date().getDate();
+
     // Handle the user registration data as needed
     console.log('Received user data:', { username, email, password });
+
+    // Insert user data into the Users table using Sequelize
+    sequelize.query('INSERT INTO Users (Username, Email, PasswordHash, RegistrationDate, IsAdmin) VALUES (?, ?, ?, ?, ?)', {
+      replacements: [username, email, password, currentYear, 0],
+      type: Sequelize.QueryTypes.INSERT,
+    });
+    
+
+    console.log(`User ${User.Username} created with ID ${User.UserID}`);
 
     res.status(201).json({ message: 'User data received successfully' });
   } catch (error) {

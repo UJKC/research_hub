@@ -9,7 +9,7 @@ const sequelize = new Sequelize({
 });
 
 // Define the User model to match your existing schema
-const User = sequelize.define('User', {
+const User = sequelize.define('Users', {
   UserID: {
     type: DataTypes.INTEGER,
     primaryKey: true,
