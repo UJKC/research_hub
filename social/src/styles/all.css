@@ -1,0 +1,4 @@
+.scrollable-content {
+    max-height: 200px; /* Set a maximum height for the content area */
+    overflow-y: auto; /* Enable vertical scroll bar */
+  }
