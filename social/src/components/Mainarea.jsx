@@ -4,7 +4,7 @@ import Content from './Maincontent';
 
 function Area() {
     return (
-        <div style={{display: "flex"}}>
+        <div className="d-flex flex-nowrap">
             <SideNav />
             <Content />
         </div>
