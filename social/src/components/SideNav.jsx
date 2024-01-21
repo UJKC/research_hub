@@ -9,6 +9,7 @@ function SideNav() {
     </a>
     <hr />
     <ul class="nav nav-pills flex-column mb-auto">
+    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
       <li class="nav-item">
         <a href="#" class="nav-link active" aria-current="page">
           Home
@@ -34,6 +35,7 @@ function SideNav() {
           help
         </a>
       </li>
+      </div>
     </ul>
     <hr />
     <div class="dropdown">

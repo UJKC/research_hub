@@ -71,3 +71,10 @@ Building a comprehensive social media platform for researchers involves creating
     (post)
 
 Remember to prioritize a user-friendly interface, seamless navigation, and a responsive design for both desktop and mobile users. Building such a complex platform may require collaboration with a team of developers, designers, and possibly legal advisors to address privacy and regulatory considerations.
+
+
+
+
+placeholder
+modal
+
