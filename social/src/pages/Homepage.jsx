@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../components/Headers';
-import SideNav from '../components/SideNav'
+import Area from '../components/Mainarea';
 
 function HomePage() {
     return (
         <div className='HomePage'>
             <Header />
-            <SideNav />
+            <Area />
         </div>
     );
   }

@@ -1,9 +1,9 @@
 import React from 'react';
-import '../styles/all.css'
+import '../styles/sidenav.css'
 
-function Header() {
+function SideNav() {
     return (
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style={{width: "280px",}}>
+        <div class="col-md-3 col-lg-2 side-nav p-3 bg-body-tertiary">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
         <span class="fs-4">Sidebar</span>
         </a>
@@ -53,4 +53,4 @@ function Header() {
   );
 }
   
-  export default Header;
+  export default SideNav;
