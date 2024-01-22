@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/name.css'
+import CurrentDateTime from './Date';
 
 function Cardname() {
     return (
@@ -16,7 +17,7 @@ function Cardname() {
         </div>
         <div class="col-md-5"></div>
         <div class="col-md-3 text-right d-none d-md-block">
-          <span>Date of Posting</span>
+          <CurrentDateTime />
         </div>
       </div>
 
