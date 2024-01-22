@@ -1,33 +1,21 @@
 import React from 'react';
+import '../styles/name.css'
 
 function Cardname() {
     return (
         <div>
-            <div class="row d-none d-md-flex">
-          <div class="col-md-4">
-            <div class="d-flex align-items-center">
-              <img src="profile-photo.jpg" alt="Profile Photo" class="rounded-circle" style={{width: '40px',height: '40px'}} />
-              <span class="ml-2">John Doe</span>
-            </div>
+        <div class="col-md-4">
+          <div class="d-none d-md-flex align-items-center">
+            <div class="profile-circle"></div>
+            <span class="ml-2">John Doe</span>
           </div>
-          <div class="col-md-5"></div>
-          <div class="col-md-3 text-right">
-            <span>Date of Posting</span>
+          <div class="d-flex align-items-center justify-content-md-start justify-content-center d-md-none">
+            <div class="profile-circle"></div>
+            <span class="mt-2">John Doe</span>
           </div>
         </div>
-  
-        <div class="row d-flex d-md-none">
-          <div class="col-12 text-center">
-            <div class="d-flex flex-column align-items-center">
-              <img src="profile-photo.jpg" alt="Profile Photo" class="rounded-circle" style={{width: '40px',height: '40px'}} />
-              <span class="mt-2">John Doe</span>
-            </div>
-          </div>
-          <div class="col-12 text-right mt-2">
-            <span>Date of Posting <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></span>
-          </div>
-        </div>
-        </div>
+      </div>
+
     );
   }
   
