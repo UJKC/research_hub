@@ -1,6 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function NewPost() {
+
+    const tags = ["JavaScript", "HTML", "CSS", "Bootstrap", "React", "Node.js"];
+
+  // State to manage selected tags
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  // State to manage tag search
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Handle tag search
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value.toLowerCase());
+  };
+
+  // Handle tag click to toggle active state
+  const handleTagClick = (tag) => {
+    const index = selectedTags.indexOf(tag);
+    if (index === -1) {
+      setSelectedTags([...selectedTags, tag]);
+    } else {
+      const newTags = [...selectedTags];
+      newTags.splice(index, 1);
+      setSelectedTags(newTags);
+    }
+  };
+
+
+
     return (
         <div>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -60,7 +88,45 @@ function NewPost() {
 
             </div>
 
+            <div>
+      {/* Search bar */}
+      <div className="form-group">
+        <label htmlFor="tagSearch">Search Tags:</label>
+        <input type="text" className="form-control" id="tagSearch" placeholder="Type to search tags" onChange={handleSearch} />
       </div>
+
+      {/* Tag list */}
+      <div className="tag-list">
+        {tags
+          .filter(tag => tag.toLowerCase().includes(searchTerm))
+          .map(tag => (
+            <span
+              key={tag}
+              className={`tag ${selectedTags.includes(tag) ? 'active' : ''}`}
+              onClick={() => handleTagClick(tag)}
+            >
+              {tag}
+            </span>
+          ))}
+      </div>
+
+      {/* Display selected tags */}
+      <div className="container mt-4">
+        <div className="card">
+          <div className="card-header">Selected Tags</div>
+          <div className="card-body">
+            <ul className="list-unstyled">
+              {selectedTags.map(tag => (
+                <li key={tag}>{tag}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      </div>
+      
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
