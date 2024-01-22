@@ -3,7 +3,7 @@ import '../styles/name.css'
 
 function Cardname() {
     return (
-        <div>
+        <div class="row">
         <div class="col-md-4">
           <div class="d-none d-md-flex align-items-center">
             <div class="profile-circle"></div>
@@ -13,6 +13,10 @@ function Cardname() {
             <div class="profile-circle"></div>
             <span class="mt-2">John Doe</span>
           </div>
+        </div>
+        <div class="col-md-5"></div>
+        <div class="col-md-3 text-right d-none d-md-block">
+          <span>Date of Posting</span>
         </div>
       </div>
 
