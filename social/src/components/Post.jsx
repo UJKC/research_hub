@@ -1,6 +1,7 @@
 import React from 'react';
 import Cardnav from './CardNav';
 import BodyCard from './Cardbody';
+import BodyCardtagTagged from './CardFooter';
 
 function PostCard() {
     return (
@@ -10,6 +11,7 @@ function PostCard() {
             <div class="card mb-4  bg-body-tertiary" style={{marginTop: "30px"}}>
               <Cardnav />
               <BodyCard />
+              <BodyCardtagTagged />
             </div>
       
           </div>

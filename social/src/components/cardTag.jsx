@@ -41,7 +41,6 @@ const BodyCardtag = () => {
             {seeMoreClicked ? 'See Less' : 'See More'}
           </button>
         )}
-        <hr />
         </div>
     </div>
   );
