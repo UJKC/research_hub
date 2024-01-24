@@ -13,6 +13,7 @@ Port 5000: Home backend
 
 Port 5001: dbms
 /authenticate
+/createduser
 
 
 
