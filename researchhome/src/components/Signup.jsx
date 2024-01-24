@@ -1,106 +1,109 @@
-import React from 'react';
-import '../styles/Sign.css'
+import React, { useState } from 'react';
 
-var username;
-var email;
-var password;
+const SignUpPage = () => {
+  const [formData, setFormData] = useState({
+    profilePhoto: '',
+    username: '',
+    email: '',
+    password: '',
+    bio: '',
+    phoneNumber: '',
+    address: '',
+    designation: '',
+  });
 
-function Sign() {
+  const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+  });
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-      console.log(username)
-      console.log(email)
-      console.log(password);
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    // Basic email validation
+    if (name === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const isValidEmail = emailRegex.test(value);
+      setErrors({
+        ...errors,
+        email: isValidEmail ? '' : 'Invalid email address',
+      });
+    }
+    // Basic password length validation
+    if (name === 'password') {
+      const isValidPassword = value.length >= 6;
+      setErrors({
+        ...errors,
+        password: isValidPassword ? '' : 'Password must be at least 6 characters long',
+      });
+    }
+  };
 
-      // Prepare data to send to the backend
-      const formData = {
-        username,
-        email,
-        password,
-      };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      // Send data to the backend
+      const response = await axios.post('http://localhost:5000/signup', formData);
+      console.log('Server response:', response.data);
+      // Handle success or additional logic here
+    } catch (error) {
+      console.error('Error sending data to the server:', error);
+      // Handle error or display an error message
+    }
+  };
 
-      // Send POST request to the backend
-      try {
-        const response = await fetch('http://localhost:5000/createuser', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData)
-        });
-
-        if (response.ok) {
-          // Handle successful registration (redirect, show success message, etc.)
-          console.log('User created successfully!');
-        } else {
-          // Handle registration error (show error message, etc.)
-          console.error('Failed to create user.');
-        }
-      } catch (error) {
-        console.error('Error during registration:', error);
-      }
-    };
-
-    return (
-      <section class="vh-100 bg-image"
-        style={{backgroundImage: "url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp')"}}>
-        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-          <div class="container h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-              <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                <div class="card" style={{borderRadius: 15}}>
-                  <div class="card-body p-5">
-                    <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-
-                    <form onSubmit={handleSubmit}>
-
-                      <div class="form-outline mb-4">
-                        <input type="text" id="form3Example1cg" class="form-control form-control-lg" value={username} />
-                        <label class="form-label" for="form3Example1cg">Your Name</label>
-                      </div>
-
-                      <div class="form-outline mb-4">
-                        <input type="email" id="form3Example3cg" class="form-control form-control-lg" value={email}/>
-                        <label class="form-label" for="form3Example3cg">Your Email</label>
-                      </div>
-
-                      <div class="form-outline mb-4">
-                        <input type="password" id="form3Example4cg" class="form-control form-control-lg" value={password} />
-                        <label class="form-label" for="form3Example4cg">Password</label>
-                      </div>
-
-                      <div class="form-outline mb-4">
-                        <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
-                        <label class="form-label" for="form3Example4cdg">Repeat your password</label>
-                      </div>
-
-                      <div class="form-check d-flex justify-content-center mb-5">
-                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
-                        <label class="form-check-label" for="form2Example3g">
-                          I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
-                        </label>
-                      </div>
-
-                      <div class="d-flex justify-content-center">
-                        <button type="submit"
-                          class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
-                      </div>
-
-                      <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!"
-                          class="fw-bold text-body"><u>Login here</u></a></p>
-
-                    </form>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  return (
+    <div>
+      <h1>Sign Up</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Profile Photo</label>
+          <input type="file" name="profilePhoto" onChange={handleChange} />
         </div>
-      </section>
-    );
-  }
-  
-  export default Sign;
+        <div>
+          <label>Username</label>
+          <input type="text" name="username" onChange={handleChange} />
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" name="email" onChange={handleChange} onBlur={handleBlur} />
+          {errors.email && <p>{errors.email}</p>}
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" name="password" onChange={handleChange} onBlur={handleBlur} />
+          {errors.password && <p>{errors.password}</p>}
+        </div>
+        <div>
+          <label>Bio</label>
+          <textarea name="bio" onChange={handleChange} />
+        </div>
+        <div>
+          <label>Phone Number</label>
+          <input type="tel" name="phoneNumber" onChange={handleChange} />
+        </div>
+        <div>
+          <label>Address</label>
+          <textarea name="address" onChange={handleChange} />
+        </div>
+        <div>
+          <label>Designation</label>
+          <input type="text" name="designation" onChange={handleChange} />
+        </div>
+        <div>
+          <button type="submit">Sign Up</button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default SignUpPage;
