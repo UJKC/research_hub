@@ -9,6 +9,7 @@ Port 3000: Home frontend
 Port 5000: Home backend
 /api/data
 /validate
+/createuser
 
 Port 5001: dbms
 /authenticate

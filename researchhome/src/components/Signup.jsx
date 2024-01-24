@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
@@ -51,7 +52,7 @@ const SignUpPage = () => {
     
     try {
       // Send data to the backend
-      const response = await axios.post('http://localhost:5000/signup', formData);
+      const response = await axios.post('http://localhost:5000/createuser', formData);
       console.log('Server response:', response.data);
       // Handle success or additional logic here
     } catch (error) {
