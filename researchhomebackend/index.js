@@ -42,7 +42,7 @@ app.post('/createUser', async (req, res) => {
 
   // Forward the data to the server running on port 5001
   try {
-    const response = await axios.post('http://localhost:5001/receiveData', userData);
+    const response = await axios.post('http://localhost:5001/createdbuser', userData);
     console.log('Server 5001 response:', response.data);
     res.json({ message: 'User created successfully and data forwarded' });
   } catch (error) {

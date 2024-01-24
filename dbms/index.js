@@ -50,7 +50,7 @@ app.post('/authenticate', async (req, res) => {
 
     // Find the user in the database based on email and password
     const [user] = await sequelize.query(
-      'SELECT * FROM Users WHERE Users.email = :email AND Users.PasswordHash = :password',
+      'SELECT * FROM Users WHERE Users.email = :email AND Users.password = :password',
       {
         replacements: { email, password },
         type: sequelize.QueryTypes.SELECT,
@@ -61,7 +61,7 @@ app.post('/authenticate', async (req, res) => {
     if (!user) {
       res.status(401).json({ authenticated: false, error: 'Authentication failed' });
     } else {
-      res.status(200).json({ authenticated: true, user: { email: user.Email } });
+      res.status(200).json({ authenticated: true, user: user });
     }
   } catch (error) {
     console.error('Error during authentication:', error.message);
@@ -71,16 +71,16 @@ app.post('/authenticate', async (req, res) => {
 
 app.post('/createdbuser', async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { profilePhoto, username, email, password, bio, phoneNumber, address, designation } = req.body;
 
     const currentYear = new Date().getDate();
 
     // Handle the user registration data as needed
-    console.log('Received user data:', { username, email, password });
+    console.log('Received user data:', { profilePhoto, username, email, password, bio, phoneNumber, address, designation });
 
     // Insert user data into the Users table using Sequelize
-    sequelize.query('INSERT INTO Users (Username, Email, PasswordHash, RegistrationDate, IsAdmin) VALUES (?, ?, ?, ?, ?)', {
-      replacements: [username, email, password, currentYear, 0],
+    sequelize.query('INSERT INTO users (profile_photo, username, email, password, bio, phone_number, address, RegistrationDate, designation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', {
+      replacements: [profilePhoto, username, email, password, bio, phoneNumber, address, currentYear, designation],
       type: Sequelize.QueryTypes.INSERT,
     });
     
