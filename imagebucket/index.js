@@ -6,6 +6,7 @@ const axios = require('axios');
 const fs = require('fs');
 const app = express();
 const PORT = 5003;
+const path = require('path');
 
 // Enable CORS
 app.use(cors());
@@ -17,29 +18,30 @@ app.get('/api/data', (req, res) => {
   res.json({ message: 'Hello from the backend!' });
 });
 
-const createNestedDirectories = (baseDir, ...nestedDirs) => {
-    nestedDirs.reduce((currentPath, nestedDir) => {
-      const newPath = path.join(currentPath, nestedDir);
-      if (!fs.existsSync(newPath)) {
-        fs.mkdirSync(newPath);
-      }
-      return newPath;
-    }, baseDir);
+const createNestedDirectories = (baseFolder, folderName) => {
+  const folderPath = path.join(baseFolder, folderName);
+  fs.mkdirSync(folderPath);
 };
 
 app.post('/register', (req, res) => {
-    const { username } = req.body;
-  
-    // Create user folder
-    const userFolderPath = path.join(__dirname, 'users', username);
-    fs.mkdirSync(userFolderPath);
-  
-    // Create profile, post, and repository folders
-    createNestedDirectories(userFolderPath, 'profile');
-    createNestedDirectories(userFolderPath, 'post');
-    createNestedDirectories(userFolderPath, 'repository');
-  
-    res.send('User registered successfully!');
+  const { username } = req.body;
+
+  // Create base directory if it doesn't exist
+  const baseFolderPath = path.join(__dirname, 'users');
+  if (!fs.existsSync(baseFolderPath)) {
+    fs.mkdirSync(baseFolderPath);
+  }
+
+  // Create user folder
+  const userFolderPath = path.join(baseFolderPath, username);
+  fs.mkdirSync(userFolderPath);
+
+  // Create profile, post, and repository folders
+  createNestedDirectories(userFolderPath, 'profile');
+  createNestedDirectories(userFolderPath, 'post');
+  createNestedDirectories(userFolderPath, 'repository');
+
+  res.send('User registered successfully!');
 });
   
   // Endpoint for creating a new post
