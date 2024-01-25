@@ -3,6 +3,7 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const multer = require('multer');
 const fs = require('fs');
 const app = express();
 const PORT = 5003;
@@ -23,7 +24,26 @@ const createNestedDirectories = (baseFolder, folderName) => {
   fs.mkdirSync(folderPath);
 };
 
-app.post('/register', (req, res) => {
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const { username } = req.body;
+    const userFolderPath = path.join(__dirname, 'users', username, 'profile');
+    
+    // Create the profile folder if it doesn't exist
+    if (!fs.existsSync(userFolderPath)) {
+      fs.mkdirSync(userFolderPath, { recursive: true });
+    }
+
+    cb(null, userFolderPath);
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname); // You can customize the file name if needed
+  },
+});
+
+const upload = multer({ storage });
+
+app.post('/register', upload.single('profilePhoto'), (req, res) => {
   const { username } = req.body;
 
   // Create base directory if it doesn't exist
@@ -37,7 +57,6 @@ app.post('/register', (req, res) => {
   fs.mkdirSync(userFolderPath);
 
   // Create profile, post, and repository folders
-  createNestedDirectories(userFolderPath, 'profile');
   createNestedDirectories(userFolderPath, 'post');
   createNestedDirectories(userFolderPath, 'repository');
 
