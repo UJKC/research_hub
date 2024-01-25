@@ -17,6 +17,7 @@ function NewPost() {
   const [selectedVideos, setSelectedVideos] = useState([]);
   const [selectedDocuments, setSelectedDocuments] = useState([]);
   const [links, setLinks] = useState([]);
+  const [inputValue, setInputValue] = useState('');
 
   // State to manage selected tags
   const [selectedTags, setSelectedTags] = useState([]);
@@ -112,19 +113,13 @@ function NewPost() {
     setSelectedDocuments((prevSelectedDocuments) => [...prevSelectedDocuments, ...documentNames]);
   };
 
-  const handleLinkUpload = (event) => {
-    // Get the value of the input field
-    const linkValue = event.target.value.trim();
-
-    // Check if the input is not empty
-    if (linkValue !== '') {
-      // Update the state to include the new link
-      setLinks((prevLinks) => [...prevLinks, linkValue]);
-
-      // Clear the input field after uploading
-      event.target.value = '';
-    }
+  const handleLinkInput = () => {
+    // Adding the current input value to the links array
+    setLinks(prevLinks => [...prevLinks, inputValue]);
+    // Clearing the input field
+    setInputValue('');
   };
+
 
     return (
         <div>
@@ -219,16 +214,22 @@ function NewPost() {
 
                     <div class="tab-pane fade" id="links" role="tabpanel">
                     <div>
-      <h2>Multiple Links Uploader</h2>
-      <label>
-        Upload Link:
-        <input type="text" onChange={handleLinkUpload} />
-      </label>
+      <input
+        type="text"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder="Enter a link"
+      />
+      <button onClick={handleLinkInput}>Add Link</button>
+
+      {/* Displaying the entered links */}
       <div>
-        <h3>Uploaded Links:</h3>
+        <h2>Entered Links:</h2>
         <ul>
           {links.map((link, index) => (
-            <li key={index}>{link}</li>
+            <li key={index}>
+              <a href={link} target="_blank" rel="noopener noreferrer">{link}</a>
+            </li>
           ))}
         </ul>
       </div>
