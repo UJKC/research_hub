@@ -24,7 +24,7 @@ const Liked = () => {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Tag Modal</Modal.Title>
+          <Modal.Title>Project: (project)</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {/* Add content for your modal here */}
@@ -33,9 +33,6 @@ const Liked = () => {
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
-          </Button>
-          <Button variant="primary" onClick={handleCloseModal}>
-            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>

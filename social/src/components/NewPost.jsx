@@ -4,6 +4,16 @@ function NewPost() {
 
     const tags = ["JavaScript", "HTML", "CSS", "Bootstrap", "React", "Node.js"];
 
+    const DummyProjects = [
+      { id: 1, name: 'Project A' },
+      { id: 2, name: 'Project B' },
+      { id: 3, name: 'Project C' },
+    ];
+    
+  const [addToRepository, setAddToRepository] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(DummyProjects[0]);
+  const [postText, setPostText] = useState('');
+
   // State to manage selected tags
   const [selectedTags, setSelectedTags] = useState([]);
 
@@ -27,6 +37,20 @@ function NewPost() {
     }
   };
 
+  const handleCheckboxChange = () => {
+    setAddToRepository(!addToRepository);
+  };
+
+  const handleProjectChange = (event) => {
+    const projectId = parseInt(event.target.value, 10);
+    const project = DummyProjects.find((p) => p.id === projectId);
+    setSelectedProject(project);
+  };
+
+  const handlePostTextChange = (event) => {
+    setPostText(event.target.value);
+  };
+
 
 
     return (
@@ -43,7 +67,7 @@ function NewPost() {
       </div>
       <div class="modal-body">
         
-      <textarea class="form-control expandable-input" rows="3" placeholder="Type your text here..."></textarea>
+      <textarea class="form-control expandable-input" rows="3" value={postText} onChange={handlePostTextChange} placeholder="Type your text here..."></textarea>
 
       <ul class="nav nav-tabs mt-3" id="attachmentTabs" role="tablist">
                     <li class="nav-item">
@@ -125,11 +149,41 @@ function NewPost() {
       </div>
     </div>
 
+    <div>
+      <label>
+        <input
+          type="checkbox"
+          checked={addToRepository}
+          onChange={handleCheckboxChange}
+        />
+        Add to repository
+      </label>
+
+      <br />
+
+      <label>
+        Select Project:
+        <select value={selectedProject.id} onChange={handleProjectChange}>
+          {DummyProjects.map((project) => (
+            <option key={project.id} value={project.id}>
+              {project.name}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <p>
+        Selected Project: {selectedProject.name}
+        <br />
+        Add to Repository: {addToRepository ? 'Yes' : 'No'}
+      </p>
+    </div>
+
       </div>
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary">Post</button>
       </div>
     </div>
   </div>
