@@ -22,6 +22,9 @@ Port 5002: Social Backend
 
 Port 5003: Image Bucker
 /api/data
+/register
+/createPost
+/uploadImage
 
 
 
