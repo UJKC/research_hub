@@ -13,6 +13,8 @@ function NewPost() {
   const [addToRepository, setAddToRepository] = useState(false);
   const [selectedProject, setSelectedProject] = useState(DummyProjects[0]);
   const [postText, setPostText] = useState('');
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedVideos, setSelectedVideos] = useState([]);
 
   // State to manage selected tags
   const [selectedTags, setSelectedTags] = useState([]);
@@ -64,6 +66,7 @@ function NewPost() {
         addToRepository,
         selectedProject,
         postText,
+        selectedImages,
       }),
     })
       .then(response => response.json())
@@ -76,7 +79,13 @@ function NewPost() {
       });
   };
 
+  const handleImageChange = (e) => {
+    const files = e.target.files;
 
+    // Extracting image names and updating state
+    const imageNames = Array.from(files).map(file => file.name);
+    setSelectedImages(prevImages => [...prevImages, ...imageNames]);
+  };
 
     return (
         <div>
@@ -115,7 +124,21 @@ function NewPost() {
 
                 <div class="tab-content mt-2">
                     <div class="tab-pane fade show active" id="images" role="tabpanel">
-                        <p>Images content goes here...</p>
+                        <div>
+      <input
+        type="file"
+        multiple
+        onChange={handleImageChange}
+      />
+      <div>
+        <h3>Selected Images:</h3>
+        <ul>
+          {selectedImages.map((imageName, index) => (
+            <li key={index}>{imageName}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
                     </div>
 
                     <div class="tab-pane show" id="videos" role="tabpanel">
