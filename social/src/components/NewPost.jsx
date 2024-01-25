@@ -51,6 +51,30 @@ function NewPost() {
     setPostText(event.target.value);
   };
 
+  const handleButtonClick = () => {
+    // Assuming you are using the fetch API to make a POST request to the specified endpoint
+    fetch('http://localhost:5000/api/data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        selectedTags,
+        addToRepository,
+        selectedProject,
+        postText,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from the server as needed
+        console.log('Server response:', data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
 
 
     return (
@@ -183,7 +207,7 @@ function NewPost() {
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Post</button>
+        <button type="button" class="btn btn-primary" onClick={handleButtonClick}>Post</button>
       </div>
     </div>
   </div>
