@@ -40,13 +40,18 @@ app.post('/validate', async (req, res) => {
 app.post('/createUser', async (req, res) => {
   const userData = req.body;
 
-  // Forward the data to the server running on port 5001
   try {
-    const response = await axios.post('http://localhost:5001/createdbuser', userData);
-    console.log('Server 5001 response:', response.data);
-    res.json({ message: 'User created successfully and data forwarded' });
+    // Forward the data to the server running on port 5001
+    const response5001 = await axios.post('http://localhost:5001/createdbuser', userData);
+    console.log('Server 5001 response:', response5001.data);
+
+    // If successful response from 5001, send req.body to port 5003/register
+    const response5003 = await axios.post('http://localhost:5003/register', userData);
+    console.log('Server 5003 response:', response5003.data);
+
+    res.json({ message: 'User created successfully, data forwarded, and registered' });
   } catch (error) {
-    console.error('Error forwarding data to server 5001:', error.message);
+    console.error('Error:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
