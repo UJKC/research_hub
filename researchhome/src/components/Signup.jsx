@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const SignUpPage = () => {
+
+  const [file, setFile] = useState(null);
+
   const [formData, setFormData] = useState({
-    profilePhoto: '',
+    profilePhoto: 'sample',
     username: '',
     email: '',
     password: '',
@@ -52,13 +55,55 @@ const SignUpPage = () => {
     
     try {
       // Send data to the backend
-      const response = await axios.post('http://localhost:5000/createuser', formData);
-      console.log('Server response:', response.data);
+      fetch('http://localhost:5000/createuser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          
+          if (file) {
+            const formData1 = new FormData();
+            formData1.append('profilePhoto', file);
+            formData1.append('username', formData.username);
+      
+            fetch('http://localhost:5000/createUserPhoto', {
+              method: 'POST',
+              body: JSON.stringify(formData1),
+            })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+              })
+              .then(data => {
+                console.log('Server response:', data);
+                // Handle success or additional logic here
+              })
+              .catch(error => {
+                console.error('Error uploading file:', error.message);
+                // Handle error or display an error message
+              });
+          }
+
+        })
       // Handle success or additional logic here
+      
     } catch (error) {
       console.error('Error sending data to the server:', error);
       // Handle error or display an error message
     }
+  };
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
   };
 
   return (
@@ -67,7 +112,7 @@ const SignUpPage = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Profile Photo</label>
-          <input type="file" name="profilePhoto" onChange={handleChange} />
+          <input type="file" name="profilePhoto" onChange={handleFileChange} />
         </div>
         <div>
           <label>Username</label>

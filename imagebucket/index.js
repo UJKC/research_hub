@@ -28,11 +28,6 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const { username } = req.body;
     const userFolderPath = path.join(__dirname, 'users', username, 'profile');
-    
-    // Create the profile folder if it doesn't exist
-    if (!fs.existsSync(userFolderPath)) {
-      fs.mkdirSync(userFolderPath, { recursive: true });
-    }
 
     cb(null, userFolderPath);
   },
@@ -57,12 +52,19 @@ app.post('/register', upload.single('profilePhoto'), (req, res) => {
   fs.mkdirSync(userFolderPath);
 
   // Create profile, post, and repository folders
+  createNestedDirectories(userFolderPath, 'profile');
   createNestedDirectories(userFolderPath, 'post');
   createNestedDirectories(userFolderPath, 'repository');
 
   res.send('User registered successfully!');
 });
+
+app.post('/registerprofile', upload.single('profilePhoto'), (req, res) => {
+  const { username } = req.body;
+  res.send(`File uploaded for user ${username}`);
+});
   
+/*
   // Endpoint for creating a new post
 app.post('/createPost', (req, res) => {
     const { username, postID, content, date } = req.body;
@@ -86,6 +88,7 @@ app.post('/uploadImage', (req, res) => {
   
     res.send('Image uploaded successfully!');
 });
+*/
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
