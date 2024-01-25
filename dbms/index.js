@@ -94,8 +94,18 @@ app.post('/createdbuser', async (req, res) => {
   }
 });
 
-app.post('/newpostdbms', async (req, res) => {
-  console.log(req.body)
+app.post('/newpostdbms', (req, res) => {
+  try {
+    // Handle the received data here
+    const receivedData = req.body;
+    console.log('Received data:', receivedData);
+
+    // Send a response if needed
+    res.json({ message: 'Data received successfully on newpostdbms endpoint' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 });
 
 app.listen(port, () => {
