@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
-    profilePhoto: null,
+    profilePhoto: '',
     username: '',
     email: '',
     password: '',
@@ -23,14 +23,6 @@ const SignUpPage = () => {
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
-
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setFormData({
-      ...formData,
-      profilePhoto: selectedFile,
     });
   };
 
@@ -59,20 +51,8 @@ const SignUpPage = () => {
     e.preventDefault();
     
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append('profilePhoto', formData.profilePhoto);
-
-      // Append other form data fields
-      formDataToSend.append('username', formData.username);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('password', formData.password);
-      formDataToSend.append('bio', formData.bio);
-      formDataToSend.append('phoneNumber', formData.phoneNumber);
-      formDataToSend.append('address', formData.address);
-      formDataToSend.append('designation', formData.designation);
-
       // Send data to the backend
-      const response = await axios.post('http://localhost:5000/createUser', formDataToSend);
+      const response = await axios.post('http://localhost:5000/createuser', formData);
       console.log('Server response:', response.data);
       // Handle success or additional logic here
     } catch (error) {
@@ -87,7 +67,7 @@ const SignUpPage = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Profile Photo</label>
-          <input type="file" name="profilePhoto" onChange={handleFileChange} />
+          <input type="file" name="profilePhoto" onChange={handleChange} />
         </div>
         <div>
           <label>Username</label>
