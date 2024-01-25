@@ -50,6 +50,7 @@ app.post('/createUser', async (req, res) => {
     const response5003 = await axios.post('http://localhost:5003/register', userData);
     console.log('Server 5003 response:', response5003.data);
 
+    res.status(200).json({ message: 'Working' });
   } catch (error) {
     console.error('Error:', error.message);
     res.status(500).json({ error: 'Internal server error' });

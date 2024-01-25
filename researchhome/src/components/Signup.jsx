@@ -55,44 +55,37 @@ const SignUpPage = () => {
     
     try {
       // Send data to the backend
-      fetch('http://localhost:5000/createuser', {
+      const response1 = await fetch('http://localhost:5000/createuser', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          
-          if (file) {
-            const formData1 = new FormData();
-            formData1.append('profilePhoto', file);
-            formData1.append('username', formData.username);
-      
-            fetch('http://localhost:5000/createUserPhoto', {
-              method: 'POST',
-              body: JSON.stringify(formData1),
-            })
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-              })
-              .then(data => {
-                console.log('Server response:', data);
-                // Handle success or additional logic here
-              })
-              .catch(error => {
-                console.error('Error uploading file:', error.message);
-                // Handle error or display an error message
-              });
-          }
+        body: JSON.stringify(formData),
+      });
 
-        })
+      // Check if the first request was successful before proceeding with the second request
+      if (response1.ok) {
+        const file = formData.profilePhoto; // Assuming file is already defined
+
+        // Second API request to port 5000/createUserPhoto
+        const formData1 = new FormData();
+        formData1.append('profilePhoto', file);
+        formData1.append('username', formData.username);
+
+        const response2 = await fetch('http://localhost:5000/createUserPhoto', {
+          method: 'POST',
+          body: formData1,
+        });
+
+        // Handle the response from the second request
+        if (response2.ok) {
+          console.log('Both requests were successful');
+        } else {
+          console.error('Error in the second request');
+        }
+      } else {
+        console.error('Error in the first request');
+      }
       // Handle success or additional logic here
       
     } catch (error) {
