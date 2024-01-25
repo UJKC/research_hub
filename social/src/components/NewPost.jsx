@@ -15,6 +15,7 @@ function NewPost() {
   const [postText, setPostText] = useState('');
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedVideos, setSelectedVideos] = useState([]);
+  const [selectedDocuments, setSelectedDocuments] = useState([]);
 
   // State to manage selected tags
   const [selectedTags, setSelectedTags] = useState([]);
@@ -68,6 +69,7 @@ function NewPost() {
         postText,
         selectedImages,
         selectedVideos,
+        selectedDocuments,
       }),
     })
       .then(response => response.json())
@@ -96,6 +98,16 @@ function NewPost() {
 
     // Updating state with new video names
     setSelectedVideos((prevVideos) => [...prevVideos, ...videoNames]);
+  };
+
+  const handleDocumentChange = (e) => {
+    const files = e.target.files;
+
+    // Extract and store document names from selected files
+    const documentNames = Array.from(files).map((file) => file.name);
+
+    // Update the state with the new document names
+    setSelectedDocuments((prevSelectedDocuments) => [...prevSelectedDocuments, ...documentNames]);
   };
 
     return (
@@ -172,7 +184,17 @@ function NewPost() {
                     </div>
 
                     <div class="tab-pane fade" id="documents" role="tabpanel">
-                        <p>Documents content goes here...</p>
+                    <div>
+      <input type="file" multiple onChange={handleDocumentChange} />
+      <div>
+        <h2>Selected Document Names:</h2>
+        <ul>
+          {selectedDocuments.map((documentName, index) => (
+            <li key={index}>{documentName}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
                     </div>
 
                     <div class="tab-pane fade" id="webpages" role="tabpanel">
