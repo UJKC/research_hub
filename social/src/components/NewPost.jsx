@@ -16,6 +16,7 @@ function NewPost() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedVideos, setSelectedVideos] = useState([]);
   const [selectedDocuments, setSelectedDocuments] = useState([]);
+  const [links, setLinks] = useState([]);
 
   // State to manage selected tags
   const [selectedTags, setSelectedTags] = useState([]);
@@ -70,6 +71,7 @@ function NewPost() {
         selectedImages,
         selectedVideos,
         selectedDocuments,
+        links,
       }),
     })
       .then(response => response.json())
@@ -108,6 +110,20 @@ function NewPost() {
 
     // Update the state with the new document names
     setSelectedDocuments((prevSelectedDocuments) => [...prevSelectedDocuments, ...documentNames]);
+  };
+
+  const handleLinkUpload = (event) => {
+    // Get the value of the input field
+    const linkValue = event.target.value.trim();
+
+    // Check if the input is not empty
+    if (linkValue !== '') {
+      // Update the state to include the new link
+      setLinks((prevLinks) => [...prevLinks, linkValue]);
+
+      // Clear the input field after uploading
+      event.target.value = '';
+    }
   };
 
     return (
@@ -202,7 +218,21 @@ function NewPost() {
                     </div>
 
                     <div class="tab-pane fade" id="links" role="tabpanel">
-                        <p>Links content goes here...</p>
+                    <div>
+      <h2>Multiple Links Uploader</h2>
+      <label>
+        Upload Link:
+        <input type="text" onChange={handleLinkUpload} />
+      </label>
+      <div>
+        <h3>Uploaded Links:</h3>
+        <ul>
+          {links.map((link, index) => (
+            <li key={index}>{link}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
                     </div>
                 </div>
 
