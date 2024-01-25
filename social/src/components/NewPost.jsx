@@ -67,6 +67,7 @@ function NewPost() {
         selectedProject,
         postText,
         selectedImages,
+        selectedVideos,
       }),
     })
       .then(response => response.json())
@@ -85,6 +86,16 @@ function NewPost() {
     // Extracting image names and updating state
     const imageNames = Array.from(files).map(file => file.name);
     setSelectedImages(prevImages => [...prevImages, ...imageNames]);
+  };
+
+  const handleVideoChange = (event) => {
+    const files = event.target.files;
+
+    // Extracting video names from selected files
+    const videoNames = Array.from(files).map((file) => file.name);
+
+    // Updating state with new video names
+    setSelectedVideos((prevVideos) => [...prevVideos, ...videoNames]);
   };
 
     return (
@@ -142,7 +153,22 @@ function NewPost() {
                     </div>
 
                     <div class="tab-pane show" id="videos" role="tabpanel">
-                        <p>Videos content goes here...</p>
+                    <div>
+      <input
+        type="file"
+        accept="video/*"
+        multiple
+        onChange={handleVideoChange}
+      />
+      <div>
+        <h2>Selected Videos:</h2>
+        <ul>
+          {selectedVideos.map((videoName, index) => (
+            <li key={index}>{videoName}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
                     </div>
 
                     <div class="tab-pane fade" id="documents" role="tabpanel">
