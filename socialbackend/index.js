@@ -20,16 +20,22 @@ app.get('/api/data', (req, res) => {
 app.post('/newpost', async (req, res) => {
   try {
     // Extract email and password from the request
-    console.log(req.body)
-    res.json(req.body)
+    const dataToSend = req.body;
 
-  }
-  catch(err) {
-    res.json({message: err});
-  }
+    // Make a POST request to another endpoint
+    const response = await axios.post('http://localhost:5001/newpostdbms', dataToSend);
 
+    // Log the response from the other endpoint
+    console.log(response.data);
+
+    // Send the original data as a response
+    res.json(req.body);
+  } catch (err) {
+    // Handle errors
+    console.error(err);
+    res.json({ message: err.message });
+  }
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

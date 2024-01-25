@@ -95,28 +95,7 @@ app.post('/createdbuser', async (req, res) => {
 });
 
 app.post('/newpostdbms', async (req, res) => {
-  try {
-    const { profilePhoto, username, email, password, bio, phoneNumber, address, designation } = req.body;
-
-    const currentYear = new Date().getDate();
-
-    // Handle the user registration data as needed
-    console.log('Received user data:', { profilePhoto, username, email, password, bio, phoneNumber, address, designation });
-
-    // Insert user data into the Users table using Sequelize
-    sequelize.query('INSERT INTO users (profile_photo, username, email, password, bio, phone_number, address, RegistrationDate, designation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', {
-      replacements: [profilePhoto, username, email, password, bio, phoneNumber, address, currentYear, designation],
-      type: Sequelize.QueryTypes.INSERT,
-    });
-    
-
-    console.log(`User ${User.Username} created with ID ${User.UserID}`);
-
-    res.status(201).json({ message: 'User data received successfully' });
-  } catch (error) {
-    console.error('Error handling user data on backend_5001:', error.message);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+  console.log(req.body)
 });
 
 app.listen(port, () => {

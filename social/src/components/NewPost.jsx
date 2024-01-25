@@ -59,7 +59,7 @@ function NewPost() {
   const handleButtonClick = () => {
     // Assuming you are using the fetch API to make a POST request to the specified endpoint
     console.log("Posting")
-    fetch('http://localhost:5001/newpost', {
+    fetch('http://localhost:5002/newpost', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
