@@ -53,6 +53,7 @@ function NewPost() {
 
   const handleButtonClick = () => {
     // Assuming you are using the fetch API to make a POST request to the specified endpoint
+    console.log("Posting")
     fetch('http://localhost:5001/newpost', {
       method: 'POST',
       headers: {
@@ -202,12 +203,11 @@ function NewPost() {
         Add to Repository: {addToRepository ? 'Yes' : 'No'}
       </p>
     </div>
-
+    <button type="button" class="btn btn-primary" onClick={handleButtonClick}>Post</button>
       </div>
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onClick={handleButtonClick}>Post</button>
       </div>
     </div>
   </div>

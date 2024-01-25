@@ -21,6 +21,7 @@ app.post('/newpost', async (req, res) => {
   try {
     // Extract email and password from the request
     console.log(req.body)
+    res.json(req.body)
 
   }
   catch(err) {
