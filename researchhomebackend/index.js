@@ -39,6 +39,7 @@ app.post('/validate', async (req, res) => {
 
 app.post('/createUser', async (req, res) => {
   const userData = req.body;
+  console.log(userData);
 
   try {
     // Forward the data to the server running on port 5001
