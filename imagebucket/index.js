@@ -11,7 +11,7 @@ const port = 5003;
 app.post('/register', async (req, res) => {
   try {
     console.log(req.body)
-    const { profilePhotoBase64, username, email} = req.body;
+    const { profilePhotoBase64, username} = req.body;
 
     // Decode the Base64 string
     const base64Image = profilePhotoBase64.split(',')[1]; // Remove data:image/... prefix
@@ -20,12 +20,17 @@ app.post('/register', async (req, res) => {
     // Create the user's directory if it doesn't exist
     const uploadDir = 'uploads/users';
     const userDir = path.join(uploadDir, username);
-    fs.mkdirSync(userDir, { recursive: true });
+    const profilePath = path.join(userDir, 'profile');
+    const postPath = path.join(userDir, 'post');
+    const repoPath = path.join(userDir, 'repository');
+    fs.mkdirSync(profilePath, { recursive: true });
+    fs.mkdirSync(postPath, { recursive: true });
+    fs.mkdirSync(repoPath, { recursive: true });
 
     // Save the image file
     const filename = 'profile.jpg';
-    const filePath = path.join(userDir, filename);
-    fs.writeFileSync(filePath, imageBuffer);
+    const profileDir = path.join(profilePath, filename);
+    fs.writeFileSync(profileDir, imageBuffer);
 
     // ... (Rest of your registration logic)
 
