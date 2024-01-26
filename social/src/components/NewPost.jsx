@@ -12,11 +12,17 @@ function NewPost() {
     
   const [addToRepository, setAddToRepository] = useState(false);
   const [selectedProject, setSelectedProject] = useState(DummyProjects[0]);
+
   const [postText, setPostText] = useState('');
+
   const [selectedImages, setSelectedImages] = useState([]);
   const [base64Images, setBase64Images] = useState([]);
+
   const [selectedVideos, setSelectedVideos] = useState([]);
-  const [selectedDocuments, setSelectedDocuments] = useState([]);
+
+  const [documents, setDocuments] = useState([]);
+  const [documentNames, setDocumentNames] = useState([]);
+
   const [links, setLinks] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
@@ -78,11 +84,11 @@ function NewPost() {
       body: JSON.stringify({
         images: base64Images,
         videos: selectedVideos,
+        documents: documents,
         selectedTags,
         addToRepository,
         selectedProject,
         postText,
-        selectedDocuments,
         links,
       }),
     })
@@ -143,14 +149,19 @@ function NewPost() {
     setSelectedVideos(base64Videos);
   };
 
-  const handleDocumentChange = (e) => {
-    const files = e.target.files;
+  const handledocChange = async (event) => {
+    const files = event.target.files;
 
-    // Extract and store document names from selected files
-    const documentNames = Array.from(files).map((file) => file.name);
+    // Convert each file to base64
+    const newDocuments = Array.from(files).map((file) => {
+      return {
+        name: file.name,
+        base64: URL.createObjectURL(file),
+      };
+    });
 
-    // Update the state with the new document names
-    setSelectedDocuments((prevSelectedDocuments) => [...prevSelectedDocuments, ...documentNames]);
+    setDocuments([...documents, ...newDocuments]);
+    setDocumentNames([...documentNames, ...Array.from(files).map(file => file.name)]);
   };
 
   const handleLinkInput = () => {
@@ -246,13 +257,13 @@ function NewPost() {
 
                     <div class="tab-pane fade" id="documents" role="tabpanel">
                     <div>
-      <input type="file" multiple onChange={handleDocumentChange} />
+      <input type="file" multiple onChange={handledocChange} />
       <div>
         <h2>Selected Document Names:</h2>
         <ul>
-          {selectedDocuments.map((documentName, index) => (
-            <li key={index}>{documentName}</li>
-          ))}
+        {documentNames.map((name, index) => (
+          <li key={index}>{name}</li>
+        ))}
         </ul>
       </div>
     </div>
