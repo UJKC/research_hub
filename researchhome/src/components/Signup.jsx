@@ -8,6 +8,7 @@ const RegisterForm = () => {
   const [password, setPassword] = useState('');
   const [bio, setBio] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [address, setaddress] = useState('');
   const [designation, setDesignation] = useState('');
 
   const handleSubmit = async (event) => {
@@ -20,6 +21,7 @@ const RegisterForm = () => {
     password: password,
     bio: bio,
     phoneNumber: phoneNumber,
+    address: address,
     designation: designation
   }
 
@@ -100,6 +102,15 @@ const RegisterForm = () => {
         required
         value={phoneNumber}
         onChange={(event) => setPhoneNumber(event.target.value)}
+      />
+      <label htmlFor="address">Address:</label>
+      <input
+        type="text"
+        id="address"
+        name="address"
+        required
+        value={address}
+        onChange={(event) => setaddress(event.target.value)}
       />
       <label htmlFor="designation">Designation:</label>
       <input

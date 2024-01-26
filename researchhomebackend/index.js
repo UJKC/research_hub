@@ -37,46 +37,6 @@ app.post('/validate', async (req, res) => {
   }
 });
 
-app.post('/createUser', async (req, res) => {
-  const userData = req.body;
-  console.log(userData);
-
-  try {
-    // Forward the data to the server running on port 5001
-    const response5001 = await axios.post('http://localhost:5001/createdbuser', userData);
-    console.log('Server 5001 response:', response5001.data);
-
-    // If successful response from 5001, send req.body to port 5003/register
-    const response5003 = await axios.post('http://localhost:5003/register', userData);
-    console.log('Server 5003 response:', response5003.data);
-
-    const response50031 = await axios.post('http://localhost:5003/registerprofile', userData);
-    console.log('Server 5003 response:', response50031.data);
-
-    res.status(200).json({ message: 'Working' });
-  } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-app.post('/createUserPhoto', async (req, res) => {
-  const userData = req.body;
-  console.log(userData);
-
-  try {
-
-    // If successful response from 5001, send req.body to port 5003/register
-    const response5003 = await axios.post('http://localhost:5003/registerprofile', userData);
-    console.log('Server 5003 response:', response5003.data);
-
-    res.json({ message: 'User created successfully, data forwarded, and registered' });
-  } catch (error) {
-    console.error('Error:', error.message);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

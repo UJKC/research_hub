@@ -13,7 +13,7 @@ Port 5000: Home backend
 
 Port 5001: dbms
 /authenticate
-/createduser
+/createdser
 /newpostdbms
 
 Port 5002: Social Backend
@@ -23,8 +23,6 @@ Port 5002: Social Backend
 Port 5003: Image Bucker
 /api/data
 /register
-/createPost
-/uploadImage
 
 
 

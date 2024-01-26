@@ -11,7 +11,7 @@ const port = 5003;
 app.post('/register', async (req, res) => {
   try {
     console.log(req.body)
-    const { profilePhotoBase64, username} = req.body;
+    const { profilePhotoBase64, username, email, password, bio, phoneNumber, address, designation } = req.body;
 
     // Decode the Base64 string
     const base64Image = profilePhotoBase64.split(',')[1]; // Remove data:image/... prefix
@@ -32,7 +32,29 @@ app.post('/register', async (req, res) => {
     const profileDir = path.join(profilePath, filename);
     fs.writeFileSync(profileDir, imageBuffer);
 
-    // ... (Rest of your registration logic)
+    const formData = {
+      profilePhoto: profileDir,
+      username: username,
+      email: email,
+      password: password,
+      bio: bio,
+      phoneNumber: phoneNumber,
+      address: address,
+      designation: designation
+    }
+
+    try {
+      const response = await fetch('http://localhost:5001/createdbuser', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }, // Set content type to JSON
+      body: JSON.stringify(formData), // Stringify the object as JSON
+    });
+      const data = await response.json();
+      // Handle server response (e.g., display success/error message)
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
 
     res.json({ message: 'Registration successful!' });
   } catch (error) {
