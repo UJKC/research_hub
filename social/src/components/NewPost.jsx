@@ -77,11 +77,11 @@ function NewPost() {
       },
       body: JSON.stringify({
         images: base64Images,
+        videos: selectedVideos,
         selectedTags,
         addToRepository,
         selectedProject,
         postText,
-        selectedVideos,
         selectedDocuments,
         links,
       }),
@@ -121,14 +121,26 @@ function NewPost() {
     }
     };
 
-  const handleVideoChange = (event) => {
-    const files = event.target.files;
+    
 
-    // Extracting video names from selected files
-    const videoNames = Array.from(files).map((file) => file.name);
+  const handleVideoChange = async (e) => {
+    const files = e.target.files;
 
-    // Updating state with new video names
-    setSelectedVideos((prevVideos) => [...prevVideos, ...videoNames]);
+    // Convert selected videos to base64
+    const base64Promises = Array.from(files).map((file) => {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          resolve({ name: file.name, base64: event.target.result });
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    const base64Videos = await Promise.all(base64Promises);
+
+    // Update the state with selected videos
+    setSelectedVideos(base64Videos);
   };
 
   const handleDocumentChange = (e) => {
@@ -208,22 +220,29 @@ function NewPost() {
 
                     <div class="tab-pane show" id="videos" role="tabpanel">
                     <div>
-      <input
-        type="file"
-        accept="video/*"
-        multiple
-        onChange={handleVideoChange}
-      />
+      <input type="file" multiple onChange={handleVideoChange} />
+
       <div>
-        <h2>Selected Videos:</h2>
+        <h3>Selected Videos (only 1):</h3>
         <ul>
-          {selectedVideos.map((videoName, index) => (
-            <li key={index}>{videoName}</li>
+          {selectedVideos.map((video, index) => (
+            <li key={index}>{video.name}</li>
           ))}
         </ul>
       </div>
+
+      {selectedVideos.length > 0 && (
+        <div>
+          <h3>Uploaded Videos:</h3>
+          <ul>
+            {selectedVideos.map((video, index) => (
+              <li key={index}>{video.name}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
-                    </div>
+    </div>
 
                     <div class="tab-pane fade" id="documents" role="tabpanel">
                     <div>
