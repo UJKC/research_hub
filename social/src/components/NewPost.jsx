@@ -14,6 +14,7 @@ function NewPost() {
   const [selectedProject, setSelectedProject] = useState(DummyProjects[0]);
   const [postText, setPostText] = useState('');
   const [selectedImages, setSelectedImages] = useState([]);
+  const [base64Images, setBase64Images] = useState([]);
   const [selectedVideos, setSelectedVideos] = useState([]);
   const [selectedDocuments, setSelectedDocuments] = useState([]);
   const [links, setLinks] = useState([]);
@@ -56,8 +57,18 @@ function NewPost() {
     setPostText(event.target.value);
   };
 
-  const handleButtonClick = () => {
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const handleButtonClick = async () => {
     // Assuming you are using the fetch API to make a POST request to the specified endpoint
+      
     console.log("Posting")
     fetch('http://localhost:5002/newpost', {
       method: 'POST',
@@ -65,11 +76,11 @@ function NewPost() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        images: base64Images,
         selectedTags,
         addToRepository,
         selectedProject,
         postText,
-        selectedImages,
         selectedVideos,
         selectedDocuments,
         links,
@@ -85,13 +96,30 @@ function NewPost() {
       });
   };
 
-  const handleImageChange = (e) => {
-    const files = e.target.files;
-
-    // Extracting image names and updating state
-    const imageNames = Array.from(files).map(file => file.name);
-    setSelectedImages(prevImages => [...prevImages, ...imageNames]);
+  const handleRemoveImage = (index) => {
+    setSelectedImages((prevSelectedImages) =>
+      prevSelectedImages.filter((_, i) => i !== index)
+    );
+    setBase64Images((prevBase64Images) =>
+      prevBase64Images.filter((_, i) => i !== index)
+    );
   };
+  
+    const handleImageChange = (e) => {
+      const files = e.target.files;
+
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      const file = files[i];
+
+      reader.onloadend = () => {
+        setSelectedImages((prevSelectedImages) => [...prevSelectedImages, file]);
+        setBase64Images((prevBase64Images) => [...prevBase64Images, reader.result]);
+      };
+
+      reader.readAsDataURL(file);
+    }
+    };
 
   const handleVideoChange = (event) => {
     const files = event.target.files;
@@ -165,11 +193,14 @@ function NewPost() {
         onChange={handleImageChange}
       />
       <div>
-        <h3>Selected Images:</h3>
+        <h3>Selected Images (Recommended Select One Please):</h3>
         <ul>
-          {selectedImages.map((imageName, index) => (
-            <li key={index}>{imageName}</li>
-          ))}
+        {selectedImages.map((image, index) => (
+          <div key={index}>
+            <img src={base64Images[index]} alt={`selected-${index}`} />
+            <button onClick={() => handleRemoveImage(index)}>Remove</button>
+          </div>
+        ))}
         </ul>
       </div>
     </div>
