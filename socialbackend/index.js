@@ -25,6 +25,12 @@ app.post('/newpost', async (req, res) => {
     // Make a POST request to image_dbms
     const response_img = await axios.post('http://localhost:5003/newpost', dataToSend);
     const {savedImagesPaths} = response_img.data
+    console.log(savedImagesPaths);
+
+    // Make a POST request to image_dbms
+    const response_vid = await axios.post('http://localhost:5004/newpost', dataToSend);
+    const {savedVideoPaths} = response_vid.data
+    console.log(savedVideoPaths);
 
     // Make a POST request to another endpoint
     const response = await axios.post('http://localhost:5001/newpostdbms', dataToSend);
