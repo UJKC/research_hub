@@ -229,7 +229,7 @@ function NewPost() {
     </div>
                     </div>
 
-                    <div class="tab-pane show" id="videos" role="tabpanel">
+                    <div class="tab-pane show active" id="videos" role="tabpanel">
                     <div>
       <input type="file" multiple onChange={handleVideoChange} />
 
@@ -255,7 +255,7 @@ function NewPost() {
     </div>
     </div>
 
-                    <div class="tab-pane fade" id="documents" role="tabpanel">
+                    <div class="tab-pane fade  show active" id="documents" role="tabpanel">
                     <div>
       <input type="file" multiple onChange={handledocChange} />
       <div>
@@ -269,11 +269,11 @@ function NewPost() {
     </div>
                     </div>
 
-                    <div class="tab-pane fade" id="webpages" role="tabpanel">
+                    <div class="tab-pane fade show active" id="webpages" role="tabpanel">
                         <p>Webpages content goes here...</p>
                     </div>
 
-                    <div class="tab-pane fade" id="links" role="tabpanel">
+                    <div class="tab-pane fade show active" id="links" role="tabpanel">
                     <div>
       <input
         type="text"

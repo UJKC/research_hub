@@ -22,6 +22,10 @@ app.post('/newpost', async (req, res) => {
     // Extract email and password from the request
     const dataToSend = req.body;
 
+    // Make a POST request to image_dbms
+    const response_img = await axios.post('http://localhost:5003/newpost', dataToSend);
+    const {savedImagesPaths} = response_img.data
+
     // Make a POST request to another endpoint
     const response = await axios.post('http://localhost:5001/newpostdbms', dataToSend);
 

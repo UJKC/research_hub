@@ -19,9 +19,10 @@ Port 5002: Social Backend
 /api/data
 /newpost
 
-Port 5003: Image Bucker
+Port 5003: Image Bucket
 /api/data
 /register
+/newpost
 
 
 
