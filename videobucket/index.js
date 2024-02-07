@@ -30,22 +30,8 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/newpost', async (req, res) => {
-
-  function decodeBase64Image(base64String) {
-    const matches = base64String.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
-    const response = {};
-    if (matches.length !==3) {
-      return new Error('Invalid input string')
-    }
   
-    response.type = matches[1]
-    response.data = Buffer.from(matches[2], 'base64')
-  
-    return response
-  }
-  
-  function saveImage(base64String, username, addToRepository) {
-    const decodeImage = decodeBase64Image(base64String)
+  function saveVideo(base64String, username, addToRepository) {
     const date = new Date()
     const folderPath = `./uploads/users/${username}/post/${date.getTime()}/`
     const folderPathRep = `./uploads/users/${username}/repository/${date.getTime()}/`
@@ -58,15 +44,16 @@ app.post('/newpost', async (req, res) => {
       fs.mkdirSync(folderPathRep, {recursive: true})
     }
     
-    const fileName = `image_${Date.now()}.png`
+    const fileName = `video_${Date.now()}.mp4`
     console.log("HERE!")
     
     const filePath = path.join(folderPath, fileName)
-    fs.writeFileSync(filePath, decodeImage.data)
+    const buffer = Buffer.from(base64String, 'base64')
+    fs.writeFileSync(filePath, buffer)
   
     if (addToRepository) {
       const Repdone = path.join(folderPathRep, fileName)
-      fs.writeFileSync(Repdone, decodeImage.data)
+      fs.writeFileSync(Repdone, buffer)
     }
   
     console.log(filePath)
@@ -74,25 +61,25 @@ app.post('/newpost', async (req, res) => {
   }
 
     console.log(req.body)
-    const { images, addToRepository } = req.body;
+    const { videos, addToRepository } = req.body;
     let username = 'example2'
 
-    if (!username || !images || !Array.isArray(images)) {
-      return res.status(400).json({savedImagesPaths: "No images sent"})
+    if (!username || !videos || !Array.isArray(videos)) {
+      return res.status(400).json({savedImagesPaths: "No videos sent"})
     }
 
-    const savedImagesPaths = []
+    const savedVideoPaths = []
 
-    images.forEach(base64String => {
+    videos.forEach(base64Video => {
       console.log("HERE")
-      const savedImagePath = saveImage(base64String, username, addToRepository);
-      console.log(savedImagePath)
-      savedImagesPaths.push(savedImagePath)
+      const savedVideoPath = saveVideo(base64String, username, addToRepository);
+      console.log(savedVideoPaths)
+      savedImagesPaths.push(savedVideoPathPath)
     })
 
     return res.status(200).json({
-      message: "Image saved successfully",
-      savedImagesPaths
+      message: "Video saved successfully",
+      savedVideoPaths
     })
 });
 
