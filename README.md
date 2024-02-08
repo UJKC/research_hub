@@ -27,6 +27,10 @@ Port 5004: Video Bucket
 /register
 /newpost
 
+Port 5005: Document Bucket
+/register
+/newpost
+
 
 
 
