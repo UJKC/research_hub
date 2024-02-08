@@ -50,6 +50,19 @@ const RegisterForm = () => {
     } catch (error) {
       console.error(error);
     }
+
+    try {
+      const response = await fetch('http://localhost:5005/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }, // Set content type to JSON
+      body: JSON.stringify(formData), // Stringify the object as JSON
+    });
+      const data = await response.json();
+      // Handle server response (e.g., display success/error message)
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleImageChange = (event) => {

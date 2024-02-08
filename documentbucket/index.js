@@ -23,16 +23,16 @@ app.post('/register', async (req, res) => {
     fs.mkdirSync(postPath, { recursive: true });
     fs.mkdirSync(repoPath, { recursive: true });
 
-    res.json({ message: 'Registration video successful!' });
+    res.json({ message: 'Registration document successful!' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Registration video failed.' });
+    res.status(500).json({ message: 'Registration document failed.' });
   }
 });
 
 app.post('/newpost', async (req, res) => {
   
-    
+    try {
   function savedDocumentToFile(base64Document, fileName) {
     const folderPath = path.join(uploadPath, fileName)
     const buffer = Buffer.from(base64Document, 'base64')
@@ -58,6 +58,10 @@ app.post('/newpost', async (req, res) => {
     return res.status(200).json({
       message: "All Documents saved successfully",
     })
+  }
+  catch(error) {
+    console.log(error)
+  }
 });
 
 app.listen(port, () => {
