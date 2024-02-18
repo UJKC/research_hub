@@ -6,6 +6,7 @@ const BodyCardtag = () => {
     { type: 'website', link: 'https://example.com' },
     { type: 'document', link: 'https://example.com/document.pdf' },
     { type: 'link', link: 'https://example.com/external-link' },
+    { type: 'images', link: 'https://example.com/image-link' },
     // Add more attachments as needed
   ];
 
