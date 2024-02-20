@@ -1,6 +1,6 @@
 import React from 'react';
 import SideNav from './SideNav';
-import Content from './ProfileContents';
+import Content from './ProfileContent';
 
 function Area() {
     return (

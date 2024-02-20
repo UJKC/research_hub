@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Headers';
-import Area from '../components/ProfileMainArea';
+import Area from '../components/ProfileArea';
 
 function ProfilePage() {
     return (
