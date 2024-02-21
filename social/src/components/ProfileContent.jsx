@@ -2,6 +2,7 @@ import React from 'react';
 import ProjectMasterCard from './ProjectMasterCard';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
 import SamplePosts from './SamplePosts';
+import ProfilePagePlus from './NewPrPo';
 
 const Content = ({ profileData }) => {
   const defaultProfileData = {
@@ -19,6 +20,7 @@ const Content = ({ profileData }) => {
   return (
     <>
     <Container>
+      <ProfilePagePlus />
       <Row className="justify-content-center">
         <Col md={6} className="text-center">
           <Image src={profile_photo} roundedCircle className="mb-3" />
