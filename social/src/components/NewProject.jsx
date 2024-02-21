@@ -14,7 +14,6 @@ const ProjectForm = () => {
     ];
 
 
-    const [projectName, setProjectName] = useState('');
     const [researchers, setResearchers] = useState('');
     const [projectTitle, setProjectTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -27,7 +26,6 @@ const ProjectForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = {
-            projectName,
             researchers,
             projectTitle,
             description,
@@ -56,10 +54,6 @@ const ProjectForm = () => {
     
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="projectName">
-                <Form.Label>Name of the Project</Form.Label>
-                <Form.Control type="text" placeholder="Enter project name" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
-            </Form.Group>
             <Form.Group controlId="researchers">
                 <Form.Label>Name of the researchers or their ID</Form.Label>
                 <Form.Control type="text" placeholder="Enter researchers" value={researchers} onChange={(e) => setResearchers(e.target.value)} />

@@ -56,8 +56,17 @@ app.post('/newproject', (req, res) => {
   const projectData = req.body;
   // Here you can handle the received project data as per your requirement
   console.log('Received project data:', projectData);
-  // Assuming you want to send a success response
-  res.status(200).json({ message: 'Project data received successfully' });
+
+  // Send projectData to localhost:5001/newproject
+  axios.post('http://localhost:5001/newproject', projectData)
+    .then(response => {
+      console.log('Response from server:', response.data);
+      res.status(200).json({ message: 'Project data sent successfully' });
+    })
+    .catch(error => {
+      console.error('Error sending project data:', error);
+      res.status(500).json({ error: 'Error sending project data' });
+    });
 });
 
 app.post('/newtag', (req, res) => {

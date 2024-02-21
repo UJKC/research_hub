@@ -14,6 +14,7 @@ Port 5001: dbms
 /authenticate
 /createdser
 /newpostdbms
+/newproject
 
 Port 5002: Social Backend
 /api/data
