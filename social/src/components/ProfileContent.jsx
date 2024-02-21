@@ -1,6 +1,7 @@
 import React from 'react';
 import ProjectMasterCard from './ProjectMasterCard';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
+import SamplePosts from './SamplePosts';
 
 const Content = ({ profileData }) => {
   const defaultProfileData = {
@@ -40,6 +41,7 @@ const Content = ({ profileData }) => {
           </Card>
         </Col>
       </Row>
+      <SamplePosts />
     </Container>
     <ProjectMasterCard />
     </>
