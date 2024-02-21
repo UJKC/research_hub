@@ -60,6 +60,25 @@ app.post('/newproject', (req, res) => {
   res.status(200).json({ message: 'Project data received successfully' });
 });
 
+app.post('/newtag', (req, res) => {
+  const { name, description } = req.body;
+
+  // Assuming you have a database connection, you can save the tag data here
+  // Example:
+  // db.collection('tags').insertOne({ name, description }, (err, result) => {
+  //   if (err) {
+  //     console.error('Error saving tag:', err);
+  //     res.status(500).send('Error saving tag');
+  //   } else {
+  //     res.status(201).send('Tag created successfully');
+  //   }
+  // });
+
+  // For this example, we'll just log the received data
+  console.log('Received tag data:', { name, description });
+  res.status(201).send('Tag created successfully');
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

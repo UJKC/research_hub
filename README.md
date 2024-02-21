@@ -19,6 +19,7 @@ Port 5002: Social Backend
 /api/data
 /newpost
 /newproject
+/newtag
 
 Port 5003: Image Bucket
 /register
