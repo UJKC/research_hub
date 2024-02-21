@@ -18,6 +18,7 @@ Port 5001: dbms
 Port 5002: Social Backend
 /api/data
 /newpost
+/newproject
 
 Port 5003: Image Bucket
 /register
