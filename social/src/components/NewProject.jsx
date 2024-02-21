@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import Select from 'react-select';
 
 const ProjectForm = () => {
+
+    const options = [
+        { value: 'technology', label: 'Technology' },
+        { value: 'science', label: 'Science' },
+        { value: 'health', label: 'Health' },
+        { value: 'education', label: 'Education' },
+        { value: 'arts', label: 'Arts' },
+        // Add more options as needed
+    ];
+
+
     const [projectName, setProjectName] = useState('');
     const [researchers, setResearchers] = useState('');
     const [projectTitle, setProjectTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [tags, setTags] = useState([]);
+    const [selectedTags, setSelectedTags] = useState([]);
 
-    const handleTagsChange = (selectedTags) => {
-        setTags(selectedTags);
+    const handleTagsChange = (selectedOptions) => {
+        setSelectedTags(selectedOptions);
     };
 
     const handleSubmit = (e) => {
@@ -19,7 +31,7 @@ const ProjectForm = () => {
             researchers,
             projectTitle,
             description,
-            tags
+            tags: selectedTags.map(tag => tag.value),
         };
     
         fetch('http://localhost:5002/newproject', {
@@ -60,8 +72,16 @@ const ProjectForm = () => {
                 <Form.Label>Description</Form.Label>
                 <Form.Control as="textarea" rows={3} placeholder="Enter description" value={description} onChange={(e) => setDescription(e.target.value)} />
             </Form.Group>
-            {/* You can implement the tags selection component here */}
-            {/* Example: <TagsInput onChange={handleTagsChange} /> */}
+            <Form.Group controlId="tags">
+                <Form.Label>Tags</Form.Label>
+                <Select
+                    isMulti
+                    options={options}
+                    value={selectedTags}
+                    onChange={handleTagsChange}
+                    placeholder="Select tags"
+                />
+            </Form.Group>
             <Button variant="primary" type="submit">
                 Submit
             </Button>

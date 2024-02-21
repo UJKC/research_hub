@@ -52,6 +52,14 @@ app.post('/newpost', async (req, res) => {
   }
 });
 
+app.post('/newproject', (req, res) => {
+  const projectData = req.body;
+  // Here you can handle the received project data as per your requirement
+  console.log('Received project data:', projectData);
+  // Assuming you want to send a success response
+  res.status(200).json({ message: 'Project data received successfully' });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
