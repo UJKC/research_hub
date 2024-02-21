@@ -10,6 +10,7 @@ const ProjectForm = () => {
         { value: 'health', label: 'Health' },
         { value: 'education', label: 'Education' },
         { value: 'arts', label: 'Arts' },
+        { value: 'UJWAL KC', label: 'UJWAL KC' },
         // Add more options as needed
     ];
 
