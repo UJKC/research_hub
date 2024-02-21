@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Image, Button, Modal } from 'react-bootstrap';
 import ProjectForm from './NewProject';
+import TagForm from './NewTag'
 
 const ProfilePagePlus = () => {
   const [showModal1, setShowModal1] = useState(false);
@@ -25,7 +26,7 @@ const ProfilePagePlus = () => {
         <ProjectForm />
       </Modal>
       <Modal show={showModal2} onHide={() => setShowModal2(false)}>
-        {/* Modal 2 content */}
+        <TagForm />
       </Modal>
     </Container>
   );
