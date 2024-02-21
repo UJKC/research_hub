@@ -15,6 +15,7 @@ Port 5001: dbms
 /createdser
 /newpostdbms
 /newproject
+/newtag
 
 Port 5002: Social Backend
 /api/data

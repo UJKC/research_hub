@@ -142,6 +142,24 @@ app.post('/newproject', (req, res) => {
   }
 });
 
+app.post('/newtag', (req, res) => {
+  try {
+    const projectData = req.body;
+    console.log('Received project data on port 5001:', projectData);
+    const { name, description } = req.body;
+
+    sequelize.query('INSERT INTO Tags (TagName, Description) VALUES (?, ?);', {
+      replacements: [name, description],
+      type: Sequelize.QueryTypes.INSERT,
+    });
+
+    res.status(200).json({ message: 'Project data received successfully on port 5001' });
+  } catch (error) {
+    console.error('Error handling project data on backend_5001:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 app.listen(port, () => {
   // Call the function to test the database connection
   testDatabaseConnection();

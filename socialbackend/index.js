@@ -72,20 +72,23 @@ app.post('/newproject', (req, res) => {
 app.post('/newtag', (req, res) => {
   const { name, description } = req.body;
 
-  // Assuming you have a database connection, you can save the tag data here
-  // Example:
-  // db.collection('tags').insertOne({ name, description }, (err, result) => {
-  //   if (err) {
-  //     console.error('Error saving tag:', err);
-  //     res.status(500).send('Error saving tag');
-  //   } else {
-  //     res.status(201).send('Tag created successfully');
-  //   }
-  // });
+  const projectData = req.body;
+  // Here you can handle the received project data as per your requirement
+  console.log('Received project data:', projectData);
+
+  // Send projectData to localhost:5001/newproject
+  axios.post('http://localhost:5001/newtag', projectData)
+    .then(response => {
+      console.log('Response from server:', response.data);
+      res.status(200).json({ message: 'Project data sent successfully' });
+    })
+    .catch(error => {
+      console.error('Error sending project data:', error);
+      res.status(500).json({ error: 'Error sending project data' });
+    });
 
   // For this example, we'll just log the received data
   console.log('Received tag data:', { name, description });
-  res.status(201).send('Tag created successfully');
 });
 
 app.listen(PORT, () => {
